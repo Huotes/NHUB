@@ -1,0 +1,214 @@
+/* General body styles */
+body {
+    position: relative; /* For positioning the texture */
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff; /* White text color for contrast */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 128, 0, 0.8)), url('/images/mesh-texture.jpg'); /* Gradient with texture image */
+    background-size: cover; /* Ensure both gradient and texture cover the background */
+    background-blend-mode: overlay; /* Blend gradient and texture */
+    background-attachment: fixed; /* Make the background fixed for a better effect */
+}
+
+/* Central container */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+    padding: 2rem;
+    background-color: #1a1a1a; /* Dark gray background for container */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Header styling */
+h1 {
+    color: #00c853; /* NGINX green color for the title */
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Paragraph and links styling */
+p {
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+a {
+    color: #00c853; /* NGINX green color for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #007a33; /* Darker green for link hover */
+}
+
+/* Footer text */
+.footer {
+    margin-top: 2rem;
+    font-style: italic;
+    color: #cccccc; /* Light gray for footer */
+}
+
+/* Button styling */
+.btn-project {
+    background-color: #00c853; /* NGINX green color */
+    border: none;
+    color: #fff; /* White text */
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-project:hover {
+    background-color: #007a33; /* Verde escuro */
+    transform: scale(1.05);
+}
+
+.btn-project:active {
+    background-color: #004d40; /* Verde escuro */
+}
+
+/* Tema dark */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #000000, #004d40);
+        background-size: 300% 300%;
+        animation: backgroundAnimation 15s ease infinite;
+    }
+
+    .container {
+        background-color: #1a1a1a;
+        color: #ffffff;
+    }
+
+    h1 {
+        color: #00c853;
+    }
+
+    p {
+        color: #ffffff;
+    }
+
+    a {
+        color: #00c853;
+    }
+
+    .footer {
+        color: #cccccc;
+    }
+}
+
+/* Estilo para o cubo 3D */
+.cube {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    transform-style: preserve-3d;
+    animation: rotate 10s infinite linear;
+    margin: 20px auto; /* Centraliza o cubo */
+    perspective: 1000px; /* Perspectiva para efeito 3D */
+    transition: transform 0.5s; /* Suaviza a transição de transformação */
+}
+
+/* Estilo para o cubo quando o mouse passa sobre ele */
+.cube:hover {
+    animation: none; /* Para a rotação quando o mouse está sobre o cubo */
+    transform: rotateX(0) rotateY(0); /* Define a posição inicial do cubo */
+}
+
+/* Estilo para as faces do cubo */
+.face {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: #00c853; /* Cor de fundo verde */
+    border: 1px solid #004d40; /* Cor de borda */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    color: #ffffff;
+    transition: transform 0.5s; /* Suaviza a transição de transformação das faces */
+}
+
+/* Posiciona as faces do cubo */
+.front  { transform: rotateY(  0deg) translateZ(50px); }
+.back   { transform: rotateY(180deg) translateZ(50px); }
+.left   { transform: rotateY(-90deg) translateZ(50px); }
+.right  { transform: rotateY( 90deg) translateZ(50px); }
+.top    { transform: rotateX( 90deg) translateZ(50px); }
+.bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+/* Animação de rotação */
+@keyframes rotate {
+    from {
+        transform: rotateX(0) rotateY(0);
+    }
+    to {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+/* Efeito de abertura do cubo */
+.cube:hover .front {
+    transform: rotateY(0deg) translateZ(80px);
+}
+.cube:hover .back {
+    transform: rotateY(180deg) translateZ(80px);
+}
+.cube:hover .left {
+    transform: rotateY(-90deg) translateZ(80px);
+}
+.cube:hover .right {
+    transform: rotateY(90deg) translateZ(80px);
+}
+.cube:hover .top {
+    transform: rotateX(90deg) translateZ(80px);
+}
+.cube:hover .bottom {
+    transform: rotateX(-90deg) translateZ(80px);
+}
+
+/* Adiciona uma nova classe para o cubo quebrado */
+.cube.broken {
+    animation: none; /* Para a rotação quando o cubo está quebrado */
+    transform: scale(1.2); /* Aumenta o tamanho para o efeito de quebra */
+}
+
+.cube.broken .face {
+    background-color: #004d40; /* Cor de fundo escura quando quebrado */
+    border: 1px solid #007a33; /* Cor de borda quando quebrado */
+}
+
+/* Efeito de animação para o cubo quebrado */
+@keyframes breakCube {
+    0% {
+        transform: rotateX(0) rotateY(0);
+    }
+    100% {
+        transform: scale(1.2) rotateX(360deg) rotateY(360deg);
+    }
+}
+
+.cube.broken {
+    animation: breakCube 1s forwards;
+}
+
+/* Oculta os botões de projeto inicialmente */
+#project-buttons {
+    display: none;
+}
+
+/* Exibe os botões quando o cubo está quebrado */
+.cube.broken ~ #project-buttons {
+    display: block;
+}
+
